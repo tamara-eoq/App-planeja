@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Novo Plano Financeiro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        <p class="center">
+          <small>Crie agora um novo planejamento financeiro</small>
+        </p>
+      </ion-card-title>
+      <p style="color:red">{{erro}}</p>
+    </ion-card-header>
+    <ion-card-content>
+      <form #form="ngForm" (ngSubmit)="calcular(form)">
+        <ion-item>
+          <ion-label color="primary" position="floating">
+              Nome do Plano
+          </ion-label>
+          <ion-input name="nome" ngModel></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label color="primary" position="floating">
+            Custo Fixo Mensal
+          </ion-label>
+          <ion-input name="custoMensal" ngModel></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label color="primary" position="floating">
+            Faturamento Mensal
+          </ion-label>
+          <ion-input name="faturamentoMensal" ngModel></ion-input>
+        </ion-item>
+
+        <ion-button class="margin-90" type="submit" fill="outline">Calcular</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

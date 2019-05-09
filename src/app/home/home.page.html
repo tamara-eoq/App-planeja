@@ -1,12 +1,32 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Planeja App
+      App Planeja
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-   Bem vindo ao Planeja. <br/>
-  <small>O app de planejamento financeiro pessoal</small>
+  <p class="center bold">Bem vindo ao App Planeja.</p><br />
+  <p class="center">O app de planejamento financeiro pessoal</p>
+  <br />
+  <div *ngIf="planejamentos.length == 0">
+    <p class="red">Você ainda não cadastrou nem um planejamento</p>
+  </div>
+  <ion-button class="margin-90" [routerLink]="['/novo-plano']">Criar Plano Financeiro</ion-button>
+  <div *ngFor="let planejamento of planejamentos">
+    <ion-card>
+      <ion-card-header>
+        <h2 class="center">{{planejamento.nome}}</h2>
+      </ion-card-header>
+      <ion-card-content>
+        <p>
+          {{planejamento.custoMensal}}
+        </p>
+        <p>
+          {{planejamento.faturamentoMensal}}
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

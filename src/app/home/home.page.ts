@@ -7,4 +7,18 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
+  planejamentos = []
+  ionViewDidEnter() {
+    this.planejamentos = []
+    const tamanhoDoBanco = sessionStorage.length
+    for (let index = 0; index < sessionStorage.length; index++) {
+      const chave = sessionStorage.key(index)
+      if (chave !== 'ionic-persist-config') {
+        const planejamento = sessionStorage.getItem(chave)
+        this.planejamentos.push(JSON.parse(planejamento))
+      }
+
+    }
+  }
+
 }
