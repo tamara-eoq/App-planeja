@@ -26,6 +26,11 @@
         <p>
           {{planejamento.faturamentoMensal}}
         </p>
+        <div style="display: flex; justify-content: flex-end;">
+          <ion-button color="danger" size='small' fill='outline' (click)="Excluir(planejamento.nome)">
+            Excluir
+          </ion-button>
+        </div>
       </ion-card-content>
     </ion-card>
   </div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,8 @@ import { Component } from '@angular/core';
 export class HomePage {
 
   planejamentos = []
-  ionViewDidEnter() {
+
+  listar() {
     this.planejamentos = []
     const tamanhoDoBanco = sessionStorage.length
     for (let index = 0; index < sessionStorage.length; index++) {
@@ -19,6 +21,13 @@ export class HomePage {
       }
 
     }
+  }
+  Excluir(nomeDoPlano){
+    sessionStorage.removeItem(nomeDoPlano)
+    this.listar()
+  }
+  ionViewDidEnter() {
+    this.listar()
   }
 
 }
