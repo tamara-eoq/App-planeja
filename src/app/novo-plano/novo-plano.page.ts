@@ -12,9 +12,8 @@ export class NovoPlanoPage {
 
   }
 
-erro;
+  erro;
 
-  
 
   calcular(form){
     const nomeDoPlano = form.value.nome
@@ -23,12 +22,12 @@ erro;
     const custoMensalConvertido = parseInt(custoMensal)
     const faturamentoMensalConvertido = parseInt(faturamentoMensal)
 
-    if(custoMensalConvertido > faturamentoMensalConvertido){
+    if( custoMensalConvertido > faturamentoMensalConvertido){
       this.erro = "Seu custo fixo é maior do que seu faturamento."
     } else {
       sessionStorage.setItem(nomeDoPlano, JSON.stringify(form.value))
       form.reset()
-      this.nav.back();
+      this.nav.back()
     }
 
     

@@ -7,17 +7,20 @@
 </ion-header>
 
 <ion-content padding>
-  <p class="center bold">Bem vindo ao App Planeja.</p><br />
-  <p class="center">O app de planejamento financeiro pessoal</p>
-  <br />
+  Bem vindo ao App Planeja. <br/>
+  <small>O app de planejamento financeiro pessoal</small>
+  <br/>
+  <ion-button size='small' [routerLink]="['/novo-plano']">Criar Plano Financeiro</ion-button>
+  
   <div *ngIf="planejamentos.length == 0">
-    <p class="red">Você ainda não cadastrou nem um planejamento</p>
+    <p>
+      Você ainda não cadastrou nenhum planejamento.
+    </p>
   </div>
-  <ion-button class="margin-90" [routerLink]="['/novo-plano']">Criar Plano Financeiro</ion-button>
   <div *ngFor="let planejamento of planejamentos">
-    <ion-card>
-      <ion-card-header>
-        <h2 class="center">{{planejamento.nome}}</h2>
+    <ion-card >
+      <ion-card-header (click)="irParaDetalhes(planejamento.nome)">
+        <h2>{{planejamento.nome}}</h2>
       </ion-card-header>
       <ion-card-content>
         <p>
@@ -27,7 +30,10 @@
           {{planejamento.faturamentoMensal}}
         </p>
         <div style="display: flex; justify-content: flex-end;">
-          <ion-button color="danger" size='small' fill='outline' (click)="Excluir(planejamento.nome)">
+          <ion-button (click)="editar(planejamento.nome)" color="primary" size='small' fill="outline">
+            Editar
+          </ion-button>
+          <ion-button (click)="excluir(planejamento.nome)" color="danger" size='small' fill="outline">
             Excluir
           </ion-button>
         </div>

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
+import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,25 +9,63 @@ import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 })
 export class HomePage {
 
+  constructor(private alert:AlertController, private router:Router){}
+
+
   planejamentos = []
 
   listar() {
     this.planejamentos = []
     const tamanhoDoBanco = sessionStorage.length
-    for (let index = 0; index < sessionStorage.length; index++) {
+    for (let index = 0; index < tamanhoDoBanco; index++) {
       const chave = sessionStorage.key(index)
-      if (chave !== 'ionic-persist-config') {
+      if(chave !== 'ionic-persist-config') {
         const planejamento = sessionStorage.getItem(chave)
         this.planejamentos.push(JSON.parse(planejamento))
       }
-
     }
   }
-  Excluir(nomeDoPlano){
-    sessionStorage.removeItem(nomeDoPlano)
-    this.listar()
+
+  async exibirAlertaDeExclusao (nomeDoPlano) {
+    const alertTemp = await this.alert.create({
+      header: 'Exclusão de Plano',
+      subHeader: 'Deseja realmente excluir plano ' + nomeDoPlano + '?',
+      message: '',
+      buttons: [{
+        text: 'Cancelar',
+        handler: function(){
+          console.log("Clicou no cancelar")
+        }
+      },{
+        text: 'Excluir',
+        handler: () => {
+          sessionStorage.removeItem(nomeDoPlano)
+          this.listar()
+        }
+      }]
+    })
+
+    await alertTemp.present()
   }
-  ionViewDidEnter() {
+
+  excluir(nomeDoPlano) {
+
+    this.exibirAlertaDeExclusao(nomeDoPlano)
+    
+    //sessionStorage.removeItem(nomeDoPlano)
+    //this.listar()
+  }
+
+  irParaDetalhes(nomeDoPlano){
+    this.router.navigate(['/plano-detalhe', nomeDoPlano])
+  }
+
+  editar(nomeDoPlano){
+    this.router.navigate(['/editar-plano', nomeDoPlano])
+  }
+
+
+  ionViewDidEnter(){
     this.listar()
   }
 
